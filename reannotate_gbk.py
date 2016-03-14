@@ -2,7 +2,6 @@
 
 import sys
 import re
-import multiprocessing as mp
 
 import requests
 
@@ -18,23 +17,19 @@ from Bio import SeqIO
 
 def reannotate_genbank(gbk): #main()かなー
     for gb_record in SeqIO.parse(gbk, 'genbank'):
-        yield gb_record
-        #unused func.
-        
-def reannotate_gbk_record(gb_record):
-    sys.stderr.write(gb_record.id)
-    for gb_feature in gb_record.features:
-        if 'inference' in gb_feature.qualifiers:
-            infe_l = gb_feature.qualifiers['inference'] 
-            kbid = parse_uniprotkbid(infe_l)
+        sys.stderr.write(gb_record.id)
+        for gb_feature in gb_record.features:
+            if 'inference' in gb_feature.qualifiers:
+                infe_l = gb_feature.qualifiers['inference'] 
+                kbid = parse_uniprotkbid(infe_l)
 
-            glinks_tsv_text = get_glinks_output(kbid).text
+                glinks_tsv_text = get_glinks_output(kbid).text
 
-            feat_list = []
-            for f_kv_s in generate_featkeyval_glinks_tsv(glinks_tsv_text):
-                feat_list.append(f_kv_s)
-            gb_feature.qualifiers.update({"db_xref":feat_list})
-    SeqIO.write(gb_record, sys.stdout, 'genbank')
+                feat_list = []
+                for f_kv_s in generate_featkeyval_glinks_tsv(glinks_tsv_text):
+                    feat_list.append(f_kv_s)
+                gb_feature.qualifiers.update({"db_xref":feat_list})
+        SeqIO.write(gb_record, sys.stdout, 'genbank')
 
 p = re.compile("similar to AA sequence:UniProtKB:([A-Z0-9]+)")
 def parse_uniprotkbid(infe_l):
@@ -63,11 +58,7 @@ def generate_featkeyval_glinks_tsv(glinks_tsv): #returns -> str
 
 
 if __name__ == '__main__':
-    gbk_records = SeqIO.parse(sys.stdin, 'genbank')
-    pool = mp.Pool(4)
-    callback = pool.map(reannotate_gbk_record, gbk_records)
-#    reannotate_genbank(sys.stdin)
-
+    reannotate_genbank(sys.stdin)
 
 
 
