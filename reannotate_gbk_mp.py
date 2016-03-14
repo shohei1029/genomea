@@ -27,8 +27,9 @@ def reannotate_gbk_record(gb_record):
     sys.stderr.write(gb_record.id)
     for gb_feature in gb_record.features:
         if 'inference' in gb_feature.qualifiers:
-            infe_l = gb_feature.qualifiers['inference'] 
+            infe_l = gb_feature.qualifiers['inference']
             kbid = parse_uniprotkbid(infe_l)
+            sys.stderr.write("{} {}".format(gb_record.id, kbid))
 
             glinks_tsv_text = get_glinks_output(kbid).text
 
