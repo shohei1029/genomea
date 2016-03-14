@@ -22,6 +22,8 @@ def reannotate_genbank(gbk): #main()かなー
             if 'inference' in gb_feature.qualifiers:
                 infe_l = gb_feature.qualifiers['inference']
                 kbid = parse_uniprotkbid(infe_l)
+                if not kbid:
+                    continue
                 sys.stderr.write("{} {}".format(gb_record.id, kbid))
 
                 glinks_tsv_text = get_glinks_output(kbid).text
