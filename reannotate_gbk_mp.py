@@ -33,7 +33,6 @@ def reannotate_genbank(gbk): #main()かなー
         
 def reannotate_gbk_record(gb_record):
     logger.info(gb_record.id)
-    quit()
     for gb_feature in gb_record.features:
         if 'inference' in gb_feature.qualifiers:
             infe_l = gb_feature.qualifiers['inference']
