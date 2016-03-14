@@ -3,6 +3,7 @@
 import sys
 import re
 import multiprocessing as mp
+import logging
 
 import requests
 
@@ -16,6 +17,13 @@ from Bio import SeqIO
 #環境
 #anaconda, biopython
 
+#呪文
+logger = logging.getLogger(__name__)
+handler = logging.StreamHandler()
+handler.setLevel(logging.INFO)
+logger.setLevel(logging.INFO)
+logger.addHandler(handler)
+
 num_proc = 4
 
 def reannotate_genbank(gbk): #main()かなー
@@ -24,12 +32,13 @@ def reannotate_genbank(gbk): #main()かなー
         #unused func.
         
 def reannotate_gbk_record(gb_record):
-    sys.stderr.write(gb_record.id)
+    logger.info(gb_record.id)
+    quit()
     for gb_feature in gb_record.features:
         if 'inference' in gb_feature.qualifiers:
             infe_l = gb_feature.qualifiers['inference']
             kbid = parse_uniprotkbid(infe_l)
-            sys.stderr.write("{} {}".format(gb_record.id, kbid))
+            logger.info("{} {}".format(gb_record.id, kbid))
 
             glinks_tsv_text = get_glinks_output(kbid).text
 
@@ -49,7 +58,7 @@ def get_glinks_output(kbid):
     try:
         glinks_tsv = requests.get('http://link.g-language.org/{gene_id}/tsv'.format(gene_id=kbid))
     except:
-        sys.stderr.write("error while requesting.. retry")
+        logger.warn("error while requesting.. retry")
 #        time.sleep(0.001)
         glinks_tsv = get_glinks_output(kbid)
     return glinks_tsv
@@ -70,6 +79,7 @@ if __name__ == '__main__':
     pool = mp.Pool(num_proc)
     for out_gb_record in pool.imap(reannotate_gbk_record, gbk_records):
         SeqIO.write(out_gb_record, sys.stdout, 'genbank')
+        logger.info("done: {}".format(out_gb_record.id))
 
 
 
