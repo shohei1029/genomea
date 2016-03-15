@@ -6,7 +6,16 @@ reannotate_gbk_mp.py : load genbank file from stdin, reannotate using G-links, o
 
 get_desc_from_microbiome_wiki.py : load genus name or species name from stdin, get "Description and significance" content from micriobio wiki, output plain text (without reference parenthesis) to stdout
 
+# Requirements
+Python 3 with Anaconda
+##### Package install with pip (if you don't have Anaconda environment)
+ pip install requests
+ pip install beautifulsoup4
 
+### other required packages
+biopython   for reannotate_gbk_mp.py  
+ pip install biopython
+ 
 
 
 ## Memo
