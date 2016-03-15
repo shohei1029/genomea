@@ -3,6 +3,8 @@
 import sys
 import requests
 
+requests.adapters.DEFAULT_RETRIES = 3
+
 def pmid2ref(pmid):
     #r.raise_for_status() #全部に付けるか保留
     r_au     = requests.get("http://togows.dbcls.jp/entry/pubmed/{}/au".format(pmid))
