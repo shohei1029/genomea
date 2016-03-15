@@ -10,9 +10,6 @@ from bs4 import BeautifulSoup
 #標準入力-> 種名 or 属名等 (改行なしでお願いします)
 #標準出力-> 結果，microbewiki の Description_and_significance の一段落目のみを出力する
 
-#memo
-#
-
 def get_description_and_significance(target_name):
     url = 'https://microbewiki.kenyon.edu/index.php/{}'.format(target_name)
     r = requests.get(url, verify=False)
@@ -35,5 +32,3 @@ if __name__ == '__main__':
     out = get_description_and_significance(target_name)
     out2 = remove_ref_parenthesis(out)
     sys.stdout.write(out2)
-
-

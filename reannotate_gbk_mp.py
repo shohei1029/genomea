@@ -78,7 +78,7 @@ def generate_featkeyval_glinks_tsv(glinks_tsv): #returns -> str
 if __name__ == '__main__':
     gbk_records = SeqIO.parse(sys.stdin, 'genbank')
     pool = mp.Pool(num_proc)
-    for out_gb_record in pool.imap(reannotate_gbk_record, gbk_records):
+    for out_gb_record in pool.imap(reannotate_gbk_record, gbk_records): #LOCUSの順番を保持したければ，imapじゃなくてmapを使い，結果を全てが終了するまで全部ためる。
         SeqIO.write(out_gb_record, sys.stdout, 'genbank')
         logger.info("done: {}".format(out_gb_record.id))
 
