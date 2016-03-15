@@ -24,7 +24,9 @@ handler.setLevel(logging.INFO)
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
-num_proc = 4
+num_proc = mp.cpu_count()
+if num_proc > 16:
+    num_proc = 16
 
 def reannotate_genbank(gbk): #main()かなー
     for gb_record in SeqIO.parse(gbk, 'genbank'):
