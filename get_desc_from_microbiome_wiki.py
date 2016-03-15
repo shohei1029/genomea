@@ -10,6 +10,8 @@ from bs4 import BeautifulSoup
 #標準入力-> 種名 or 属名等 (改行なしでお願いします)
 #標準出力-> 結果，microbewiki の Description_and_significance の一段落目のみを出力する
 
+requests.adapters.DEFAULT_RETRIES = 3
+
 def get_description_and_significance(target_name):
     url = 'https://microbewiki.kenyon.edu/index.php/{}'.format(target_name)
     r = requests.get(url, verify=False)
