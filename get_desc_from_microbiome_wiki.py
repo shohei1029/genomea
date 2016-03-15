@@ -7,7 +7,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-#標準入力-> 種名 or 属名等
+#標準入力-> 種名 or 属名等 (改行なしでお願いします)
 #標準出力-> 結果，microbewiki の Description_and_significance の一段落目のみを出力する
 
 #memo
@@ -30,7 +30,7 @@ def remove_ref_parenthesis(txt):
     
 
 if __name__ == '__main__':
-    target_name = sys.stdin
+    target_name = sys.stdin.readline().rstrip()
 #    target_name =  'Legionella_pneumophila'
     out = get_description_and_significance(target_name)
     out2 = remove_ref_parenthesis(out)
