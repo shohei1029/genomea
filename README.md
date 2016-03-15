@@ -14,10 +14,16 @@
 
 
 # Description
-reannotate_gbk_mp.py : load genbank file from stdin, reannotate using G-links, output reannotated genbank file to stdout  
+- reannotate_gbk_mp.py : load genbank file from stdin, reannotate using G-links, output reannotated genbank file to stdout  
 
-get_desc_from_microbiome_wiki.py : load genus name or species name from stdin, get "Description and significance" content from micriobio wiki, output plain text (without reference parenthesis) to stdout
+- get_desc_from_microbiome_wiki.py : load genus name or species name from stdin, get "Description and significance" content from micriobio wiki, output plain text (without reference parenthesis) to stdout
 
+- pmid2ref.py : input -> pmid , output -> Genome A reference (like) format.
+ex.
+```Bash
+$ echo "15508840" | python pmid2ref.py
+Ayling RD, Bashiruddin SE, Nicholas RA. 2004. Mycoplasma species and related organisms isolated from ruminants in Britain between 1990 and 2000. Vet Rec. 155:413-416.%
+```
 
 
 
