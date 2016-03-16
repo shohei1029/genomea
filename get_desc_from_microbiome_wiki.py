@@ -17,6 +17,18 @@ def get_description_and_significance(target_name):
     r = requests.get(url, verify=False)
     r.raise_for_status()
     soup = BeautifulSoup(r.text,'lxml')
+
+#    elems = soup.find_all()
+#    flag = False
+#    for elem in elems:
+#        if flag == True:
+#            print(elem)
+#        try:
+#            if elem.attrs['id'] == "Description_and_significance" or elem.attrs['id'] == "Description_and_Significance":
+#                flag = True
+#        except KeyError:
+#            continue
+
     ds_h = soup.find(id="Description_and_significance")
     if not ds_h:
         ds_h = soup.find(id="Description_and_Significance") #あまり表記ゆれがあるようだったら，正規表現にする。
