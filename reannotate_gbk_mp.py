@@ -39,11 +39,6 @@ num_proc = mp.cpu_count()
 if num_proc > 16:
     num_proc = 16
 
-def reannotate_genbank(gbk): #main()かなー
-    for gb_record in SeqIO.parse(gbk, 'genbank'):
-        yield gb_record
-        #unused func.
-        
 def reannotate_gbk_record(gb_record):
     logger.info(gb_record.id)
     for gb_feature in gb_record.features:
