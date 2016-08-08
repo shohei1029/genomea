@@ -10,6 +10,13 @@ import requests
 #biopython
 from Bio import SeqIO
 
+###使い方###
+#まずprokkaで出されたgenbankファイルをスクリプトへ標準入力で読み込ませてください。
+#そうするとreannotateされたgenbankが標準出力で吐き出されるようになっています。
+# e.g. 
+# cat prokka_hoge.gbk | python reannotate_gbk_mp.py > glinks_prokka_hoge.gbk
+
+
 #2016.3.14 , created by Shohei Nagata
 #Prokka出力のgbkを読み込ませ，CDSのUniProtKB IDを取得し，それでg-linksにかけて(post?)，結果を取得してrs_xf的な形式で出力する
 # uniprotkb idを使う理由のは，g-linksに配列入れてもsoftware errorが出てしまうため
